@@ -10,18 +10,20 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var slider: UISlider!
-    @IBOutlet var label: UILabel!
+    @IBOutlet var labelNumber: UILabel!
+    @IBOutlet var labelScores: UILabel!
+    @IBOutlet var labelRound: UILabel!
+    @IBOutlet var labelLastNumber: UILabel!
     
     var number: Int = 0
     var round: Int = 0
     var scores: Int = 0
+    var lastNumber: Int = 0
     
     
     @IBAction func checkButtonClick(){
         if round == 0 {
-            number = getRandomNumber()
-            label.text = String(number)
-            round = 1
+            resetScores()
         } else {
             let numOnSlider = Int(slider.value.rounded())
             
@@ -41,16 +43,26 @@ class ViewController: UIViewController {
             } else {
                 round += 1
             }
-            
             number = getRandomNumber()
-            label.text = String(number)
+            labelNumber.text = String(number)
+            labelRound.text = "Round: \(round)"
+            labelScores.text = "Score: \(scores)"
+            labelLastNumber.text = "Number on slider: \(numOnSlider)"
         }
         
     }
     
     func resetScores(){
+        number = getRandomNumber()
+        labelNumber.text = String(number)
+        
         round = 1
+        labelRound.text = "Round: \(round)"
+        
         scores = 0
+        labelScores.text = "Score: \(scores)"
+        
+        labelLastNumber.text = "Number on slider: 25"
     }
     
     func getRandomNumber() -> Int {

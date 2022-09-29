@@ -37,21 +37,51 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rXZ-CS-cbg">
+                                <rect key="frame" x="30" y="44" width="676" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eN-VC-I4q">
+                                <rect key="frame" x="30" y="10" width="676" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number on slider: 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zyw-Jv-hPd">
+                                <rect key="frame" x="30" y="78" width="676" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
+                            <constraint firstItem="rXZ-CS-cbg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="4Tr-Pl-Ofa"/>
                             <constraint firstItem="iRG-Y6-cWc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7Ng-3s-DkV"/>
                             <constraint firstItem="iRG-Y6-cWc" firstAttribute="top" secondItem="7b6-vU-xYE" secondAttribute="bottom" constant="30" id="Bdn-Gt-Oy6"/>
-                            <constraint firstItem="7b6-vU-xYE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="DX2-dK-gWj"/>
-                            <constraint firstItem="7b6-vU-xYE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bDg-lK-hBu"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7b6-vU-xYE" secondAttribute="trailing" constant="20" id="mDa-DA-Ckv"/>
+                            <constraint firstItem="0eN-VC-I4q" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="EeU-xZ-vdc"/>
+                            <constraint firstItem="0eN-VC-I4q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="K2x-WK-KLv"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7b6-vU-xYE" secondAttribute="trailing" constant="20" id="Kjc-Bd-Axh"/>
+                            <constraint firstItem="7b6-vU-xYE" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Lwb-8k-Lvp"/>
+                            <constraint firstItem="Zyw-Jv-hPd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="TTI-ac-DTp"/>
+                            <constraint firstItem="0eN-VC-I4q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bS5-1U-WVV"/>
+                            <constraint firstItem="Zyw-Jv-hPd" firstAttribute="top" secondItem="rXZ-CS-cbg" secondAttribute="bottom" constant="10" id="ejV-Fn-t28"/>
+                            <constraint firstItem="rXZ-CS-cbg" firstAttribute="top" secondItem="0eN-VC-I4q" secondAttribute="bottom" constant="10" id="msE-ge-cQC"/>
                             <constraint firstItem="rFv-C2-4kI" firstAttribute="top" secondItem="iRG-Y6-cWc" secondAttribute="bottom" constant="30" id="oBo-cZ-heT"/>
+                            <constraint firstItem="Zyw-Jv-hPd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oEN-TB-0QA"/>
+                            <constraint firstItem="7b6-vU-xYE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="vAK-yG-qoO"/>
+                            <constraint firstItem="rXZ-CS-cbg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vKu-hG-sp6"/>
                             <constraint firstItem="rFv-C2-4kI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vWf-xe-jwp"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="label" destination="rFv-C2-4kI" id="ZqN-kd-ZOf"/>
+                        <outlet property="labelLastNumber" destination="Zyw-Jv-hPd" id="ARl-O1-Nbe"/>
+                        <outlet property="labelNumber" destination="rFv-C2-4kI" id="thv-7C-baD"/>
+                        <outlet property="labelRound" destination="0eN-VC-I4q" id="ka3-RW-ZbN"/>
+                        <outlet property="labelScores" destination="rXZ-CS-cbg" id="gr8-fs-kgj"/>
                         <outlet property="slider" destination="7b6-vU-xYE" id="HQQ-t9-Ju4"/>
                     </connections>
                 </viewController>
