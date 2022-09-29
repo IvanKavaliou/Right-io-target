@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="736" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="01.square.fill" catalog="system" maximumValueImage="50.square.fill" translatesAutoresizingMaskIntoConstraints="NO" id="7b6-vU-xYE">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="25" minValue="1" maxValue="50" minimumValueImage="01.square.fill" catalog="system" maximumValueImage="50.square.fill" translatesAutoresizingMaskIntoConstraints="NO" id="7b6-vU-xYE">
                                 <rect key="frame" x="18" y="192" width="700" height="31"/>
                                 <color key="tintColor" systemColor="systemPurpleColor"/>
                             </slider>
@@ -27,6 +27,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="Check">
                                     <fontDescription key="titleFontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="checkButtonClick" destination="BYZ-38-t0r" eventType="touchUpInside" id="x1u-kP-E3b"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rFv-C2-4kI">
                                 <rect key="frame" x="359.66666666666669" y="326" width="16.666666666666686" height="30"/>
@@ -47,6 +50,10 @@
                             <constraint firstItem="rFv-C2-4kI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vWf-xe-jwp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="rFv-C2-4kI" id="ZqN-kd-ZOf"/>
+                        <outlet property="slider" destination="7b6-vU-xYE" id="HQQ-t9-Ju4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
