@@ -15,58 +15,34 @@ class ViewController: UIViewController {
     @IBOutlet var labelRound: UILabel!
     @IBOutlet var labelLastNumber: UILabel!
     
-    var number: Int = 0
-    var round: Int = 0
-    var scores: Int = 0
-    var lastNumber: Int = 0
-    
-    lazy var secondViewController = getSecondViewController()
-    
-    func getSecondViewController() -> SecondViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        return storyboard.instantiateViewController(identifier: "SecondViewController") as! SecondViewController
-    }
+    var game: GameProtocol!
     
     @IBAction func checkButtonClick(){
-        let numOnSlider = Int(slider.value.rounded())
+        game.calculateScore(with: Int(slider.value.rounded()))
         
-        if numOnSlider > number {
-            scores += 50 - numOnSlider + number
-        } else if numOnSlider < number {
-            scores += 50 - number + numOnSlider
+        if game.isGameEnded {
+            showAlert(scores: game.score)
         } else {
-            scores += 50
+            game.startNewRound()
         }
         
-        if round == 5 {
-            let alert = UIAlertController(title: "Game is over", message: "Your scores \(scores)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Play again", style: .default, handler: {_ in self.resetScores()}))
-            present(alert, animated: true, completion: nil )
-        } else {
-            round += 1
-        }
-        number = getRandomNumber()
-        labelNumber.text = String(number)
-        labelRound.text = "Round: \(round)"
-        labelScores.text = "Score: \(scores)"
-        labelLastNumber.text = "Number on slider: \(numOnSlider)"
+        updateLabels()
     }
     
-    func resetScores(){
-        number = getRandomNumber()
-        labelNumber.text = String(number)
-        
-        round = 1
-        labelRound.text = "Round: \(round)"
-        
-        scores = 0
-        labelScores.text = "Score: \(scores)"
-        
-        labelLastNumber.text = "Number on slider: 25"
+    func showAlert(scores: Int){
+        let alert = UIAlertController(title: "Game is over", message: "Your scores \(scores)", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Play again", style: .default, handler: {_ in
+            self.game.restartGame()
+            self.updateLabels()
+        }))
+        present(alert, animated: true, completion: nil )
     }
     
-    func getRandomNumber() -> Int {
-        return Int.random(in: 1...50)
+    func updateLabels(){
+        labelNumber.text = String(game.currentValue)
+        labelRound.text = "Round: \(game.curentRound)"
+        labelScores.text = "Score: \(game.score)"
+        labelLastNumber.text = "Number on slider: \(Int(slider.value.rounded()))"
     }
     
     override func loadView() {
@@ -76,7 +52,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        resetScores()
+        game = Game(minSecretValue: 1, maxSecretValue: 50, rounds: 5)
+        updateLabels()
         print("viewDidLoad")
     }
     
