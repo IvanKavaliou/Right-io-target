@@ -20,11 +20,16 @@ class ViewController: UIViewController {
     var scores: Int = 0
     var lastNumber: Int = 0
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        resetScores()
-    }
+    lazy var secondViewController = getSecondViewController()
     
+    func getSecondViewController() -> SecondViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        return storyboard.instantiateViewController(identifier: "SecondViewController") as! SecondViewController
+    }
+
+    @IBAction func showSecondScreen(){
+        present(secondViewController, animated: true, completion: nil)
+    }
     
     @IBAction func checkButtonClick(){
         let numOnSlider = Int(slider.value.rounded())
@@ -67,6 +72,36 @@ class ViewController: UIViewController {
     func getRandomNumber() -> Int {
         return Int.random(in: 1...50)
     }
-
+    
+    override func loadView() {
+        super.loadView()
+        print("loadView")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        resetScores()
+        print("viewDidLoad")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("viewWillAppear")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("viewDidAppear")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("viewWillDisappear")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        print("viewDidDisappear")
+    }
 }
 
