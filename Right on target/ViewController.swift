@@ -26,10 +26,6 @@ class ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         return storyboard.instantiateViewController(identifier: "SecondViewController") as! SecondViewController
     }
-
-    @IBAction func showSecondScreen(){
-        present(secondViewController, animated: true, completion: nil)
-    }
     
     @IBAction func checkButtonClick(){
         let numOnSlider = Int(slider.value.rounded())
