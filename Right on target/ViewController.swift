@@ -20,36 +20,35 @@ class ViewController: UIViewController {
     var scores: Int = 0
     var lastNumber: Int = 0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        resetScores()
+    }
+    
     
     @IBAction func checkButtonClick(){
-        if round == 0 {
-            resetScores()
+        let numOnSlider = Int(slider.value.rounded())
+        
+        if numOnSlider > number {
+            scores += 50 - numOnSlider + number
+        } else if numOnSlider < number {
+            scores += 50 - number + numOnSlider
         } else {
-            let numOnSlider = Int(slider.value.rounded())
-            
-            if numOnSlider > number {
-                scores += 50 - numOnSlider + number
-            } else if numOnSlider < number {
-                scores += 50 - number + numOnSlider
-            } else {
-                scores += 50
-            }
-            
-            if round == 5 {
-                let alert = UIAlertController(title: "Game is over", message: "Your scores \(scores)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Play again", style: .default))
-                present(alert, animated: true, completion: nil )
-                resetScores()
-            } else {
-                round += 1
-            }
-            number = getRandomNumber()
-            labelNumber.text = String(number)
-            labelRound.text = "Round: \(round)"
-            labelScores.text = "Score: \(scores)"
-            labelLastNumber.text = "Number on slider: \(numOnSlider)"
+            scores += 50
         }
         
+        if round == 5 {
+            let alert = UIAlertController(title: "Game is over", message: "Your scores \(scores)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Play again", style: .default, handler: {_ in self.resetScores()}))
+            present(alert, animated: true, completion: nil )
+        } else {
+            round += 1
+        }
+        number = getRandomNumber()
+        labelNumber.text = String(number)
+        labelRound.text = "Round: \(round)"
+        labelScores.text = "Score: \(scores)"
+        labelLastNumber.text = "Number on slider: \(numOnSlider)"
     }
     
     func resetScores(){
