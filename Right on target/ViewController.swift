@@ -16,9 +16,14 @@ class ViewController: UIViewController {
     @IBOutlet var labelLastNumber: UILabel!
     
     var game: GameProtocol!
+    var roud: RoundProtocol!
+    var generator:GeneratorProtocol!
+    
+    var lastValue:Int = 25
+    
     
     @IBAction func checkButtonClick(){
-        game.calculateScore(with: Int(slider.value.rounded()))
+        roud.calcualteScore(value: Int(slider.value.rounded()))
         
         if game.isGameEnded {
             showAlert(scores: game.score)
@@ -30,7 +35,7 @@ class ViewController: UIViewController {
     }
     
     func showAlert(scores: Int){
-        let alert = UIAlertController(title: "Game is over", message: "Your scores \(scores)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Game is over", message: "Your scores \(game.score)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Play again", style: .default, handler: {_ in
             self.game.restartGame()
             self.updateLabels()
@@ -39,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     func updateLabels(){
-        labelNumber.text = String(game.currentValue)
+        labelNumber.text = String(roud.currentValue)
         labelRound.text = "Round: \(game.curentRound)"
         labelScores.text = "Score: \(game.score)"
         labelLastNumber.text = "Number on slider: \(Int(slider.value.rounded()))"
@@ -52,7 +57,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        game = Game(minSecretValue: 1, maxSecretValue: 50, rounds: 5)
+        generator = NuberGenerator(minSecretValue: 1, maxSecretValue: 50)
+        roud = SliderRoud(score:0, curentValue: generator.getRandomValue())
+        game = Game(round: roud, secretValueGenerator: generator, rounds: 5)
         updateLabels()
         print("viewDidLoad")
     }
