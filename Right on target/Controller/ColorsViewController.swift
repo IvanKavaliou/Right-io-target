@@ -45,7 +45,7 @@ class ColorsViewController: UIViewController {
     @IBAction func clickColor(sender: UIButton){
         //secretColorLabel.text = sender.titleLabel?.text
         
-        roud.calculateScore(value: (sender.titleLabel?.text)!)
+        roud.calculateScore(value: hexStringFromColor(color: sender.backgroundColor!))
         if game.isGameEnded {
             showAlert(scores: game.score)
         } else {
@@ -62,10 +62,10 @@ class ColorsViewController: UIViewController {
         for color in colors {
             let hexColor = generator.getRandomValue()
             color?.backgroundColor = hexStringToUIColor(hex: hexColor)
-            color?.setTitle(hexColor, for: .normal)
+           // color?.setTitle(hexColor, for: .normal)
         }
         
-        //colors.randomElement()??.backgroundColor = hexStringToUIColor(hex: roud.currentValue)
+        colors.randomElement()??.backgroundColor = hexStringToUIColor(hex: roud.currentValue)
     }
     
     func showAlert(scores: Int){
@@ -103,4 +103,15 @@ class ColorsViewController: UIViewController {
             alpha: CGFloat(1.0)
         )
     }
+    
+    func hexStringFromColor(color: UIColor) -> String {
+        let components = color.cgColor.components
+        let r: CGFloat = components?[0] ?? 0.0
+        let g: CGFloat = components?[1] ?? 0.0
+        let b: CGFloat = components?[2] ?? 0.0
+
+        let hexString = String.init(format: "#%02lX%02lX%02lX", lroundf(Float(r * 255)), lroundf(Float(g * 255)), lroundf(Float(b * 255)))
+        print(hexString)
+        return hexString
+     }
 }
