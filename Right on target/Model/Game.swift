@@ -7,34 +7,55 @@
 
 import Foundation
 
+// MARK: Rounds
 protocol RoundProtocol {
     var score: Int { get set}
-    var currentValue: Int { get set }
-    
-    func calcualteScore(value: Int)
+    var currentValue: String { get set }
+    func calculateScore(value: String)
 }
 
 class SliderRoud: RoundProtocol {
+    var secretValueGenerator: GeneratorProtocol!
     var score: Int
-    var currentValue: Int
+    var currentValue: String
     
-    init?(score:Int, curentValue: Int){
+    init?(score:Int, curentValue: String){
         self.score = score
         self.currentValue = curentValue
     }
     
-    func calcualteScore(value: Int) {
-        if value > currentValue {
-            score += 50 - value + currentValue
-        } else if value < currentValue {
-            score += 50 - currentValue + value
+    func calculateScore(value: String) {
+        if Int(value)! > Int(currentValue)! {
+            score += 50 - Int(value)! + Int(currentValue)!
+        } else if Int(value)! < Int(currentValue)! {
+            score += 50 - Int(currentValue)! + Int(value)!
         } else {
             score += 50
         }
-    }}
+    }
+}
 
-protocol GeneratorProtocol {
-    func getRandomValue() -> Int
+class ColorsRound: RoundProtocol {
+    var secretValueGenerator: GeneratorProtocol!
+    
+    var score: Int
+    var currentValue: String
+    
+    init?(score:Int, curentValue: String){
+        self.score = score
+        self.currentValue = curentValue
+    }
+    
+    func calculateScore(value: String) {
+        if value == currentValue {
+            score += 1
+        }
+    }
+}
+
+// MARK: Generatos
+protocol GeneratorProtocol{
+    func getRandomValue() -> String
 }
 
 class NuberGenerator: GeneratorProtocol {
@@ -49,20 +70,29 @@ class NuberGenerator: GeneratorProtocol {
         self.minSecretValue = minSecretValue
         self.maxSecretValue = maxSecretValue
     }
-    
-    func getRandomValue() -> Int {
-        (minSecretValue...maxSecretValue).randomElement()!
+    typealias T = Int
+    func getRandomValue() -> String {
+        (minSecretValue...maxSecretValue).randomElement()!.description
     }
-    
-    
 }
 
+class ColorsGenerator: GeneratorProtocol {
+    typealias T = String
+    func getRandomValue() -> String {
+        var hexCode = "#"
+        for _ in (0...5) {
+            hexCode += String((0...15).randomElement()!, radix: 16)
+        }
+        return hexCode.uppercased()
+    }
+}
+
+// MARK: Games
 protocol GameProtocol {
     var score: Int { get set}
     var isGameEnded: Bool { get }
     var curentRound: Int { get }
     
-    var secretValueGenerator: GeneratorProtocol! { get }
     var round: RoundProtocol! { get }
     
     func restartGame()
@@ -77,7 +107,7 @@ class Game: GameProtocol {
         }
         set {}
     }
-    var secretValueGenerator: GeneratorProtocol!
+    var secretValueGenerator: GeneratorProtocol
     var round: RoundProtocol!
 
     var lastNumber: Int = 0

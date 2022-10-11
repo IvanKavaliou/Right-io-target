@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class NumbersViewController: UIViewController {
 
     @IBOutlet var slider: UISlider!
     @IBOutlet var labelNumber: UILabel!
@@ -23,8 +23,8 @@ class ViewController: UIViewController {
     
     
     @IBAction func checkButtonClick(){
-        roud.calcualteScore(value: Int(slider.value.rounded()))
-        
+        //roud.calcualteScore(value: Int(slider.value.rounded()) as! String)
+        roud.calculateScore(value: Int(slider.value.rounded()).description)
         if game.isGameEnded {
             showAlert(scores: game.score)
         } else {
@@ -32,6 +32,10 @@ class ViewController: UIViewController {
         }
         
         updateLabels()
+    }
+    
+    @IBAction func clickBack(){
+        self.dismiss(animated: true)
     }
     
     func showAlert(scores: Int){
@@ -50,38 +54,13 @@ class ViewController: UIViewController {
         labelLastNumber.text = "Number on slider: \(Int(slider.value.rounded()))"
     }
     
-    override func loadView() {
-        super.loadView()
-        print("loadView")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         generator = NuberGenerator(minSecretValue: 1, maxSecretValue: 50)
-        roud = SliderRoud(score:0, curentValue: generator.getRandomValue())
+        roud = SliderRoud(score:0, curentValue: String(generator.getRandomValue()))
         game = Game(round: roud, secretValueGenerator: generator, rounds: 5)
         updateLabels()
         print("viewDidLoad")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("viewWillAppear")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("viewDidAppear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("viewWillDisappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("viewDidDisappear")
     }
 }
 
